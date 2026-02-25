@@ -131,12 +131,12 @@ def format_title_for_platform(
         if link_url:
             formatted_title = f'<a href="{link_url}">{html_escape(cleaned_title)}</a>'
         else:
-            formatted_title = cleaned_title
+            formatted_title = html_escape(cleaned_title)  # 修复：无链接时也要转义
 
         title_prefix = "🆕 " if title_data.get("is_new") else ""
 
         if show_source:
-            result = f"[{title_data['source_name']}] {title_prefix}{formatted_title}"
+            result = f"[{html_escape(title_data['source_name'])}] {title_prefix}{formatted_title}"  # 修复：来源名也要转义
         elif show_keyword and keyword:
             result = f"<b>[{html_escape(keyword)}]</b> {title_prefix}{formatted_title}"
         else:
@@ -145,7 +145,7 @@ def format_title_for_platform(
         if rank_display:
             result += f" {rank_display}"
         if title_data["time_display"]:
-            result += f" <code>- {title_data['time_display']}</code>"
+            result += f" <code>- {html_escape(title_data['time_display'])}</code>"  # 修复：时间也转义
         if title_data["count"] > 1:
             result += f" <code>({title_data['count']}次)</code>"
 
