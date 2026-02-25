@@ -1012,7 +1012,7 @@ class NotificationDispatcher:
                     payload = {
                         "chat_id": chat_id,
                         "text": batch_content,
-                        "parse_mode": "Markdown",
+                        "disable_web_page_preview": True,
                     }
 
                     proxies = {"http": proxy_url, "https": proxy_url} if proxy_url else None
